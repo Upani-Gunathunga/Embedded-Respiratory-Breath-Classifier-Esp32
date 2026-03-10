@@ -91,7 +91,7 @@ This allows stable acquisition of respiratory sound signals without external ana
 
 # 🔌 Hardware Connections
 
-<img src="Hardware_Circuit.jpeg" width="700">
+<img src="media/Hardware_Circuit.jpeg" width="700">
 
 | Component   | ESP32-S3 Pin |
 | ----------- | ------------ |
