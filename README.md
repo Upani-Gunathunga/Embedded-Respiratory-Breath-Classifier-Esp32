@@ -68,7 +68,7 @@ Key reasons for selecting this board:
 * 🔊 **native I2S peripheral for digital microphones**
 * 🤖 **suitable for embedded ML workloads**
 
-Initial development was attempted using a **NodeMCU ESP32**, but memory constraints limited buffer allocation required for respiratory signal capture.
+
 
 The ESP32-S3 provided sufficient memory headroom for reliable audio buffering and processing.
 
@@ -108,6 +108,59 @@ This allows stable acquisition of respiratory sound signals without external ana
 | 🟢 Long     | GPIO 37 |
 
 ---
+# 🎥 Demonstration
+Three test scenarios were recorded:
+
+🔴 Short breath
+🟢 Normal breath
+🔵 Long breath
+
+Each scenario activates the corresponding LED indicator.
+The following videos demonstrate the real-time classification of different breathing patterns.
+
+## 🔴 Short Breath
+[▶ Watch Short Breath Demo](media/Short_Breath_RedLED.mp4)
+
+
+
+
+
+
+<video src="media/Short_Breath_RedLED.mp4" width="700" controls></video>
+
+The system detects a short breathing event and activates the **red LED indicator**.
+
+---
+
+## 🔵 Normal Breath
+
+<video src="media/Normal_Breath_BlueLED.mp4" width="700" controls></video>
+[▶ Watch Normal Breath Demo](media/Normal_Breath_BlueLED.mp4)
+
+A normal breathing pattern is detected and the **blue LED indicator** is triggered.
+
+---
+
+## 🟢 Long Breath
+
+<video src="media/Long_Breath_GreenLED.mp4" width="700" controls></video>
+[▶ Watch Long Breath Demo](media/Long_Breath_GreenLED.mp4)
+
+Long breathing cycles activate the **green LED indicator**.
+
+---
+
+## ⚙️ System Calibration
+
+[▶ Watch Calibration Demo](media/Calibration.mp4)
+<video src="media/calibration.mp4" width="700" controls></video>
+
+This video demonstrates the **automatic ambient noise calibration process** performed at system startup.  
+The system records background noise and dynamically determines a silence threshold used for reliable breath detection.
+
+---
+
+
 
 # 📡 Signal Processing Pipeline
 
@@ -116,11 +169,6 @@ Respiratory signals are captured at:
 **Sampling rate:**
 `16 kHz`
 
-This rate was selected because:
-
-* 🫁 respiratory audio bandwidth is well below **8 kHz**
-* 📐 satisfies **Nyquist sampling requirements**
-* 💾 reduces memory requirements compared to higher rates
 
 ---
 
@@ -148,23 +196,6 @@ This improves robustness in different environments.
 
 To ensure compatibility with embedded hardware, only lightweight statistical features are used.
 
-During the early design phase, I initially experimented with Mel-Frequency Cepstral Coefficients (MFCCs), which are commonly used in audio classification tasks such as speech recognition. A typical MFCC pipeline extracts around 13 coefficients per frame, often across multiple frames, which significantly increases both memory usage and computational complexity.
-
-While MFCCs can capture detailed spectral information, implementing them on a microcontroller introduces several constraints:
-
-additional FFT operations
-
-higher RAM requirements for frame buffers
-
-increased processing latency
-
-larger model input dimensions
-
-Since the goal of this project was to run real-time inference entirely on the ESP32-S3, I prioritized a feature set that could be computed efficiently using simple arithmetic operations.
-
-Therefore, the final design uses four lightweight statistical features that are computationally inexpensive while still capturing key characteristics of breathing sounds.
-
-These features can be calculated using basic signal statistics, making them well suited for resource-constrained embedded systems.
 
 Four features are extracted per breath:
 
@@ -173,53 +204,16 @@ Four features are extracted per breath:
 
 ### 1️⃣ RMS Energy
 
-Measures signal intensity:
-
-```
-RMS = sqrt(sum(x²) / N)
-```
-
-Breathing intensity correlates with airflow energy.
-
----
-
 ### 2️⃣ Zero Crossing Rate (ZCR)
-
-Measures signal frequency changes.
-
-```
-ZCR = sign changes / N
-```
-
-Respiratory sounds exhibit characteristic oscillation patterns.
-
----
 
 ### 3️⃣ Signal Variance
 
-Captures amplitude variability within the breathing cycle.
-
----
-
 ### 4️⃣ Breath Duration
 
-Duration of the detected breathing event in seconds.
-
-This feature strongly differentiates the three breathing classes.
-
----
 
 # 🤖 Machine Learning Model
 
 A **multiclass logistic regression model** is used for classification.
-
-Reasons for choosing this model:
-
-* ⚡ extremely lightweight
-* 🎯 deterministic inference
-* 💾 small memory footprint
-* 🔧 easy deployment on microcontrollers
-* 🚫 no need for floating-point intensive neural networks
 
 The model is exported directly into C arrays:
 
@@ -301,19 +295,7 @@ No external compute resources are required.
 
 ---
 
-# 🎥 Demonstration
 
-Three test scenarios were recorded:
-
-🔴 Short breath
-🟢 Normal breath
-🔵 Long breath
-
-Each scenario activates the corresponding LED indicator.
-
-Videos demonstrating the system are included in the repository.
-
----
 
 # 💾 Memory Considerations
 
@@ -356,53 +338,8 @@ This system currently:
 Environmental noise can affect detection performance.
 
 ---
----
-
-# 🎥 Demonstration
-
-The following videos demonstrate the real-time classification of different breathing patterns.
-
-## 🔴 Short Breath
-[▶ Watch Short Breath Demo](media/Short_Breath_RedLED.mp4)
 
 
-
-
-
-
-<video src="media/Short_Breath_RedLED.mp4" width="700" controls></video>
-
-The system detects a short breathing event and activates the **red LED indicator**.
-
----
-
-## 🔵 Normal Breath
-
-<video src="media/Normal_Breath_BlueLED.mp4" width="700" controls></video>
-[▶ Watch Normal Breath Demo](media/Normal_Breath_BlueLED.mp4)
-
-A normal breathing pattern is detected and the **blue LED indicator** is triggered.
-
----
-
-## 🟢 Long Breath
-
-<video src="media/Long_Breath_GreenLED.mp4" width="700" controls></video>
-[▶ Watch Long Breath Demo](media/Long_Breath_GreenLED.mp4)
-
-Long breathing cycles activate the **green LED indicator**.
-
----
-
-## ⚙️ System Calibration
-
-[▶ Watch Calibration Demo](media/Calibration.mp4)
-<video src="media/calibration.mp4" width="700" controls></video>
-
-This video demonstrates the **automatic ambient noise calibration process** performed at system startup.  
-The system records background noise and dynamically determines a silence threshold used for reliable breath detection.
-
----
 
 # 🚀 Future Improvements
 
