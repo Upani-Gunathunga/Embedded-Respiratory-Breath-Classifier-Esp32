@@ -23,6 +23,58 @@ The classification result is displayed through dedicated **LED indicators** conn
 The project was designed as a **human–computer interaction prototype**, demonstrating how low-cost embedded systems can interpret physiological signals in real time.
 
 ---
+# 🎥 Demonstration
+Three test scenarios were recorded:
+
+🔴 Short breath
+🟢 Normal breath
+🔵 Long breath
+
+Each scenario activates the corresponding LED indicator.
+The following videos demonstrate the real-time classification of different breathing patterns.
+
+## 🔴 Short Breath
+[▶ Watch Short Breath Demo](media/Short_Breath_RedLED.mp4)
+
+
+
+
+
+
+<video src="media/Short_Breath_RedLED.mp4" width="700" controls></video>
+
+The system detects a short breathing event and activates the **red LED indicator**.
+
+---
+
+## 🔵 Normal Breath
+
+<video src="media/Normal_Breath_BlueLED.mp4" width="700" controls></video>
+[▶ Watch Normal Breath Demo](media/Normal_Breath_BlueLED.mp4)
+
+A normal breathing pattern is detected and the **blue LED indicator** is triggered.
+
+---
+
+## 🟢 Long Breath
+
+<video src="media/Long_Breath_GreenLED.mp4" width="700" controls></video>
+[▶ Watch Long Breath Demo](media/Long_Breath_GreenLED.mp4)
+
+Long breathing cycles activate the **green LED indicator**.
+
+---
+
+## ⚙️ System Calibration
+
+[▶ Watch Calibration Demo](media/Calibration.mp4)
+<video src="media/calibration.mp4" width="700" controls></video>
+
+This video demonstrates the **automatic ambient noise calibration process** performed at system startup.  
+The system records background noise and dynamically determines a silence threshold used for reliable breath detection.
+
+---
+
 
 # 🧠 System Architecture
 
@@ -106,57 +158,6 @@ This allows stable acquisition of respiratory sound signals without external ana
 | 🔴 Short    | GPIO 35 |
 | 🔵 Normal   | GPIO 36 |
 | 🟢 Long     | GPIO 37 |
-
----
-# 🎥 Demonstration
-Three test scenarios were recorded:
-
-🔴 Short breath
-🟢 Normal breath
-🔵 Long breath
-
-Each scenario activates the corresponding LED indicator.
-The following videos demonstrate the real-time classification of different breathing patterns.
-
-## 🔴 Short Breath
-[▶ Watch Short Breath Demo](media/Short_Breath_RedLED.mp4)
-
-
-
-
-
-
-<video src="media/Short_Breath_RedLED.mp4" width="700" controls></video>
-
-The system detects a short breathing event and activates the **red LED indicator**.
-
----
-
-## 🔵 Normal Breath
-
-<video src="media/Normal_Breath_BlueLED.mp4" width="700" controls></video>
-[▶ Watch Normal Breath Demo](media/Normal_Breath_BlueLED.mp4)
-
-A normal breathing pattern is detected and the **blue LED indicator** is triggered.
-
----
-
-## 🟢 Long Breath
-
-<video src="media/Long_Breath_GreenLED.mp4" width="700" controls></video>
-[▶ Watch Long Breath Demo](media/Long_Breath_GreenLED.mp4)
-
-Long breathing cycles activate the **green LED indicator**.
-
----
-
-## ⚙️ System Calibration
-
-[▶ Watch Calibration Demo](media/Calibration.mp4)
-<video src="media/calibration.mp4" width="700" controls></video>
-
-This video demonstrates the **automatic ambient noise calibration process** performed at system startup.  
-The system records background noise and dynamically determines a silence threshold used for reliable breath detection.
 
 ---
 
